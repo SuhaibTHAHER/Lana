@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lana & Tariq Wedding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Birthstone&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --gold: #D4AF37;
+            --white: #ffffff;
+            --creme: #fcfaf7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { font-family: 'Quicksand', sans-serif; overflow: hidden; background: #000; height: 100%; width: 100%; }
+
+        .container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+
+        section { height: 100vh; width: 100%; scroll-snap-align: start; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding: 20px; }
+
+        /* --- الظرف الملكي --- */
+        #overlay { position: fixed; inset: 0; background: var(--creme); z-index: 3000; display: flex; justify-content: center; align-items: center; transition: 1.2s cubic-bezier(0.65, 0, 0.35, 1); }
+        .royal-envelope { position: relative; width: 100vw; height: 100vh; background: var(--white); cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .royal-border { position: absolute; inset: 25px; border: 1px solid var(--gold); pointer-events: none; }
+        .royal-border::before { content: '✤'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--white); padding: 0 10px; color: var(--gold); font-size: 22px; }
+        .seal-btn { z-index: 10; width: 85px; height: 85px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Birthstone'; font-size: 38px; color: white; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); border: 2px solid #fff; }
+
+        /* --- سكشن 1: الصورة --- */
+        .sec-1 { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('bg1.jpg') center/cover; }
+
+        /* --- سكشن 2: الكاونت داون --- */
+        .sec-2 { background: #fff; overflow: hidden; position: relative; }
+        
+        /* رذاذ الأوراق الذهبية المصغر */
+        .leaf {
+            position: absolute; width: 7px; height: 7px;
+            background: var(--gold);
+            opacity: 0.4;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            pointer-events: none;
+            z-index: 1;
+            animation: leafFall linear infinite;
+        }
+
+        @keyframes leafFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.5; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .countdown-wrapper { z-index: 10; position: relative; }
+        
+        /* ضبط الاتجاه ليكون من اليسار لليمين داخل السكشن */
+        .countdown-row { 
+            display: flex; 
+            gap: 15px; 
+            justify-content: center; 
+            direction: ltr; /* لضمان البدء من اليسار */
+        }
+
+        .time-box { 
+            background: #fff; width: 95px; height: 100px; border-radius: 12px;
+            display: flex; flex-direction: column; justify-content: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        .flip-num { font-size: 34px; font-weight: 700; color: #333; height: 40px; display: flex; justify-content: center; align-items: center; }
+
+        .num-slide { animation: softSlide 0.5s ease-out; }
+        @keyframes softSlide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .time-box small { color: var(--gold); text-transform: uppercase; font-size: 9px; letter-spacing: 2px; margin-top: 5px; font-weight: 700; }
+
+        /* --- سكشن الخريطة مع خلفية --- */
+        .sec-3 { 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070') center/cover; 
+        }
+
+        #music-control { position: fixed; bottom: 25px; left: 25px; width: 45px; height: 45px; background: rgba(0,0,0,0.4); color: white; border-radius: 50%; display: none; justify-content: center; align-items: center; z-index: 4000; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
+        
+        .visible .reveal { opacity: 1; transform: translateY(0); transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal { opacity: 0; transform: translateY(40px); }
+    </style>
+</head>
+<body>
+
+    <div id="music-control" onclick="toggleMusic()">🔊</div>
+
+    <div id="overlay">
+        <div class="royal-envelope" onclick="openMagic()">
+            <div class="royal-border"></div>
+            <div class="seal-btn">T&L</div>
+            <p style="margin-top: 25px; color: var(--gold); letter-spacing: 4px; font-size: 10px; font-weight: bold;">OPEN INVITATION</p>
+        </div>
+        <audio id="bgMusic" loop src="music.mp3"></audio>
+    </div>
+
+    <div class="container" id="mainScroll">
+        <section class="sec-1 visible">
+            <div class="reveal">
+                <p style="letter-spacing: 6px; font-size: 13px; margin-bottom: 10px;">SAVE THE DATE</p>
+                <div style="font-family: 'Birthstone'; font-size: clamp(75px, 20vw, 115px); line-height: 0.85;">Tariq<br><span style="color:var(--gold); font-size: 0.5em;">&</span><br>Lana</div>
+                <div style="width: 45px; height: 1px; background: var(--gold); margin: 35px auto;"></div>
+                <p style="font-size: 18px; letter-spacing: 3px; font-weight: 500; margin-bottom: 5px;">TUESDAY</p>
+<p style="font-size: 22px; letter-spacing: 2px; font-weight: 700; color: var(--gold);">14 . 05 . 2026</p>
+                <p style="font-size: 14px; color: var(--gold); margin-top: 15px; font-weight: bold; background: rgba(0,0,0,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px;">From 8:00 PM to 11:00 PM</p>
+            </div>
+        </section>
+
+        <section class="sec-2" id="sec-2">
+            <div class="reveal countdown-wrapper">
+                <h2 style="font-family: 'Birthstone'; font-size: 70px; color: var(--gold); margin-bottom: 0;">Countdown</h2>
+                <p style="color: #bbb; font-size: 11px; letter-spacing: 2px; margin-bottom: 40px;">TO THE MOST SPECIAL DAY OF YOUR LIVES</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div class="countdown-row">
+                        <div class="time-box">
+                            <div class="flip-num" id="d_box">00</div>
+                            <small>Days</small>
+                        </div>
+                        <div class="time-box">
+                            <div class="flip-num" id="h_box">00</div>
+                            <small>Hours</small>
+                        </div>
+                    </div>
+                    <div class="countdown-row">
+                        <div class="time-box">
+                            <div class="flip-num" id="m_box">00</div>
+                            <small>Minutes</small>
+                        </div>
+                        <div class="time-box">
+                            <div class="flip-num" id="s_box">00</div>
+                            <small>Seconds</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="sec-3"> 
+            <div class="reveal" style="width: 90%; max-width: 400px; background: rgba(255,255,255,0.08); padding: 30px; border-radius: 30px; backdrop-filter: blur(8px); border: 1px solid rgba(212,175,55,0.3);"> 
+                <h2 style="font-family: 'Birthstone'; font-size: 55px; color: var(--gold); margin-bottom: 10px;">Where We Celebrate</h2> 
+                <p style="color: #ddd; font-size: 11px; margin-bottom: 20px; letter-spacing: 1px;">THE GARDENS RESORT & RESTAURANT</p>
+                <div style="border-radius: 15px; overflow: hidden; border: 1px solid var(--gold);"> 
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3374.934736804082!2d35.1930419!3d32.2329237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d1f47c8991b17%3A0x239a4ec0f5056d3a!2z2YXYt9i52YUg2YjZhdmG2KrYrNi5INin2YTYrNin2LHYr9mG2LI!5e0!3m2!1sen!2s!4v1770582136709!5m2!1sen!2s" width="100%" height="220" style="border:0;" loading="lazy"></iframe> 
+                </div> 
+                <a href="https://maps.app.goo.gl/72tDrMnrbuy57pHA9" target="_blank" style="display:inline-block; margin-top:25px; padding:12px 40px; color:var(--gold); border:1px solid var(--gold); border-radius:50px; text-decoration:none; font-size:11px; font-weight:bold; letter-spacing:1px; background: rgba(0,0,0,0.3);">OPEN IN GOOGLE MAPS</a>
+            </div> 
+        </section>
+    </div>
+
+    <script>
+        function openMagic() {
+            const overlay = document.getElementById('overlay');
+            overlay.style.opacity = '0';
+            overlay.style.transform = 'scale(1.05)';
+            document.getElementById('bgMusic').play();
+            document.getElementById('music-control').style.display = 'flex';
+            setTimeout(() => { overlay.style.display = 'none'; document.body.style.overflowY = 'auto'; }, 1200);
+        }
+
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const btn = document.getElementById('music-control');
+            if (audio.paused) { audio.play(); btn.innerText = '🔊'; } else { audio.pause(); btn.innerText = '🔇'; }
+        }
+
+        const weddingDate = new Date("May 14, 2026 20:00:00").getTime();
+        function updateBox(id, val) {
+            const el = document.getElementById(id);
+            if (el.innerText !== val) {
+                el.innerText = val;
+                el.classList.remove('num-slide');
+                void el.offsetWidth; 
+                el.classList.add('num-slide');
+            }
+        }
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+            if (diff > 0) {
+                updateBox('d_box', String(Math.floor(diff / 86400000)).padStart(2, '0'));
+                updateBox('h_box', String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0'));
+                updateBox('m_box', String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0'));
+                updateBox('s_box', String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'));
+            }
+        }, 1000);
+
+        // رذاذ أوراق ذهبية خفيف جداً
+        const sec2 = document.getElementById('sec-2');
+        for (let i = 0; i < 10; i++) { 
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            leaf.style.animationDelay = Math.random() * 5 + 's';
+            sec2.appendChild(leaf);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>
