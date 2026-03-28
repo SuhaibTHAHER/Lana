@@ -20,20 +20,19 @@
 
         section { height: 100vh; width: 100%; scroll-snap-align: start; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding: 20px; }
 
-        /* --- الظرف الملكي --- */
         #overlay { position: fixed; inset: 0; background: var(--creme); z-index: 3000; display: flex; justify-content: center; align-items: center; transition: 1.2s cubic-bezier(0.65, 0, 0.35, 1); }
         .royal-envelope { position: relative; width: 100vw; height: 100vh; background: var(--white); cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .royal-border { position: absolute; inset: 25px; border: 1px solid var(--gold); pointer-events: none; }
         .royal-border::before { content: '✤'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--white); padding: 0 10px; color: var(--gold); font-size: 22px; }
         .seal-btn { z-index: 10; width: 85px; height: 85px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Birthstone'; font-size: 38px; color: white; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); border: 2px solid #fff; }
 
-        /* --- سكشن 1: الصورة --- */
+     
         .sec-1 { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('bg1.jpg') center/cover; }
 
-        /* --- سكشن 2: الكاونت داون --- */
+      
         .sec-2 { background: #fff; overflow: hidden; position: relative; }
         
-        /* رذاذ الأوراق الذهبية المصغر */
+       
         .leaf {
             position: absolute; width: 7px; height: 7px;
             background: var(--gold);
@@ -106,7 +105,7 @@
                 <p style="letter-spacing: 6px; font-size: 13px; margin-bottom: 10px;">SAVE THE DATE</p>
                 <div style="font-family: 'Birthstone'; font-size: clamp(75px, 20vw, 115px); line-height: 0.85;">Tariq<br><span style="color:var(--gold); font-size: 0.5em;">&</span><br>Lana</div>
                 <div style="width: 45px; height: 1px; background: var(--gold); margin: 35px auto;"></div>
-                <p style="font-size: 18px; letter-spacing: 3px; font-weight: 500; margin-bottom: 5px;">TUESDAY</p>
+                <p style="font-size: 18px; letter-spacing: 3px; font-weight: 500; margin-bottom: 5px;">Thursday</p>
 <p style="font-size: 22px; letter-spacing: 2px; font-weight: 700; color: var(--gold);">14 . 05 . 2026</p>
                 <p style="font-size: 14px; color: var(--gold); margin-top: 15px; font-weight: bold; background: rgba(0,0,0,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px;">From 8:00 PM to 11:00 PM</p>
             </div>
